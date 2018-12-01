@@ -11,34 +11,34 @@
     }
 
     function calculate() {
-      var totalNum = +document.getElementById("totalNum").value;
+      var totalNum = +document.getElementById("totalNum").value;  // 获取的是string，要转换为number
       var duration = +document.getElementById("duration").value;
       var capacity = +document.getElementById("capacity").value;
 
+      // 主要计算部分
       var quantity = Math.floor((capacity + 1) / (duration + 1));
       quantity = quantity === 13 ? quantity - 1 : quantity;
-
       var demand = Math.ceil(totalNum / quantity);
 
-      var result = document.createElement("div");
-      result.innerHTML = "您至少需要<bold>" + demand + "</bold>张CD";
-      document.body.appendChild(result);
+      var resultBox = document.getElementsByTagName("div")[0];
+      resultBox.innerHTML = "您至少需要" + demand + "张CD";
     }
 
     window.addEventListener("load", init, false);
   </script>
 </head>
 <body>
-  <h6>问题描述：你作为一名出道的歌手终于要出自己的第一份专辑了，你计划收录 n 首歌而且每首歌的长度都是 s 秒，
+  <h4>问题描述：你作为一名出道的歌手终于要出自己的第一份专辑了，你计划收录 n 首歌而且每首歌的长度都是 s 秒，
     每首歌必须完整地收录于一张 CD 当中。每张 CD 的容量长度都是 L 秒，而且你至少得
     保证同一张 CD 内相邻两首歌中间至少要隔 1 秒。为了辟邪，你决定任意一张 CD 内的歌数不能被 13 这个数字整除，
-    那么请问你出这张专辑至少需要多少张 CD ？</h6>
+    那么请问你出这张专辑至少需要多少张 CD ？</h4>
   <label for="totalNum">请输入您的歌曲总数：</label>
-  <input type="text" id="totalNum" />
+  <input type="number" id="totalNum" /><br>
   <label for="duration">请输入您每首歌的长度：</label>
-  <input type="text" id="duration" />秒
+  <input type="number" id="duration" />秒<br>
   <label for="capacity">请输入您的CD容量：</label>
-  <input type="text" id="capacity" />秒
+  <input type="number" id="capacity" />秒<br>
   <button id="calculate">计算</button>
+  <div></div>
 </body>
 </html>
