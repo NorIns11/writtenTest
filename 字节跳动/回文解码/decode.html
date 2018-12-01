@@ -5,38 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>回文解码</title>
-  <script>
-    function deal() {
-      var str = document.getElementById("str").value;
-      var start = +document.getElementById("startIdx").value;
-
-      // 主要部分
-      var len = +document.getElementById("len").value ? +document.getElementById("len").value : str.length;
-      var dealStr = str.substr(start, len).split("").reverse().join("");
-      str = str.substr(0, start) + str.substr(start, len) + dealStr + str.substr(start + len);
-      document.getElementById("str").value = str;
-      
-      var resultBox = document.getElementsByTagName("div")[0];
-      resultBox.innerHTML = "处理结果：" + str;
-    }
-
-    window.addEventListener("load", function() {
-      document.getElementById("dealBtn").addEventListener("click", deal, false);
-    }, false);
-  </script>
 </head>
 <body>
   <h4>现在有一个字符串，你要对这个字符串进行 n 次操作，每次操作给出两个数字：
     (p, l) 表示当前字符串中从下标为 p 的字符开始的长度为 l 的一个子串。
     你要将这个子串左右翻转后插在这个子串原来位置的正后方，求最后得到的字符串是什么。
     字符串的下标是从 0 开始的，你可以从样例中得到更多信息。</h4>
-  <label for="str">请输入您要处理的文本</label>
-  <input type="text" id="str"><br>
-  <label for="startIdx">p：</label>
-  <input type="number" id="startIdx" /><br>
-  <label for="len">l：</label>
-  <input type="number" id="len" /><br>
-  <button id="dealBtn">处理</button>
-  <div></div>
+  <script>
+    function deal(s) {
+      var sArr = s.split("\n");
+      var str = sArr[0];
+      var dealStr = "";
+      var start = 0;    
+      var len = 0;
+      for(var i = 1; i < sArr.length; i++) {
+        start = +sArr[i].split(" ")[0] >= 0 ? +sArr[i].split(" ")[0] : +sArr[i].split(" ")[0] + str.length;
+        len = sArr[i].split(" ")[1] || str.length - start;
+        dealStr = str.substr(start, len).split("").reverse().join("");
+        str = str.substr(0, start + len) + dealStr + str.substr(start + len);
+      }
+      document.write("<br>执行结果为" + str);
+    }
+
+    deal("ab\n2\n0 2\n1 3\n-1");
+    deal("abc\n2\n-1");
+  </script>
 </body>
 </html>
